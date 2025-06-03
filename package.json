@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:qa": "ng build --configuration qa",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:hola-mundo": "node dist/hola-mundo/server/server.mjs"

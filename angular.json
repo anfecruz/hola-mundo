@@ -52,7 +52,24 @@
               ],
               "outputHashing": "all"
             },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environmet/environmet.ts",
+                  "with": "src/environmet/environmet.qa.ts"
+                }
+              ],
+              "optimization": true,
+              "extractLicenses": true,
+              "sourceMap": false
+            },
             "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environmet/environmet.ts",
+                  "with": "src/environmet/environmet.dev.ts"
+                }
+              ],
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
@@ -68,6 +85,9 @@
             },
             "development": {
               "buildTarget": "hola-mundo:build:development"
+            },
+            "qa": {
+              "buildTarget": "hola-mundo:build:qa"
             }
           },
           "defaultConfiguration": "development"
@@ -97,5 +117,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "9a5c1ab8-13a1-4a56-b81d-f41f0c53cc09"
   }
 }
