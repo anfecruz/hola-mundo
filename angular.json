@@ -50,13 +50,19 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
             },
             "qa": {
               "fileReplacements": [
                 {
-                  "replace": "src/environmet/environmet.ts",
-                  "with": "src/environmet/environmet.qa.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
                 }
               ],
               "optimization": true,
@@ -66,8 +72,8 @@
             "development": {
               "fileReplacements": [
                 {
-                  "replace": "src/environmet/environmet.ts",
-                  "with": "src/environmet/environmet.dev.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
                 }
               ],
               "optimization": false,

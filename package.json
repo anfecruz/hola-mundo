@@ -1,14 +1,12 @@
 {
   "name": "hola-mundo",
   "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "build:qa": "ng build --configuration qa",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:hola-mundo": "node dist/hola-mundo/server/server.mjs"
+   "scripts": {
+    "start:dev": "ng serve --configuration=development",
+    "start:qa": "ng serve --configuration=qa",
+    "start:prod": "ng serve --configuration=production",
+    "build:dev": "ng build --configuration=development",
+    "build:prod": "ng build --configuration=production"
   },
   "private": true,
   "dependencies": {
