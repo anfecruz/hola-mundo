@@ -3,10 +3,7 @@ trigger:
   - main
 
 pool:
-  name: Default
-  demands:
-    - npm
-    - nodejs
+  name: Default  # Coincide con el pool donde se configuró el agente
 
 jobs:
 - job: TestJob
