@@ -15,10 +15,14 @@ jobs:
     displayName: 'Instalar Node.js'
 
   - script: |
-      npm install
-      npx playwright install
+      npm ci
     displayName: 'Instalar dependencias'
 
   - script: |
-      npm run test:e2e
+      npm install -D @playwright/test
+      npx playwright install --with-deps
+    displayName: 'Instalar Playwright'
+
+  - script: |
+      ng serve & npx playwright test
     displayName: 'Ejecutar pruebas E2E'
