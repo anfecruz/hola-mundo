@@ -10,7 +10,7 @@ pool:
 jobs:
 - job: TestJob
   displayName: 'Ejecutar Pruebas E2E'
-  timeoutInMinutes: 15  # Aumentado para dar más tiempo
+  timeoutInMinutes: 15
   steps:
   - task: NodeTool@0
     inputs:
@@ -19,8 +19,6 @@ jobs:
     retryCountOnTaskFailure: 3
 
   - script: |
-      npm cache clean --force
-      npm config set registry https://registry.npmjs.org/
       npm ci --no-audit --no-fund --prefer-offline
       npm install -g wait-on
     displayName: 'Instalar dependencias'
@@ -33,7 +31,6 @@ jobs:
     timeoutInMinutes: 5
 
   - script: |
-      taskkill /F /IM node.exe 2>nul || true
       start /B ng serve --configuration=development
       wait-on http://localhost:4200 -t 60000
       npx playwright test --project=chromium --workers=1 --retries=2 --timeout=30000
