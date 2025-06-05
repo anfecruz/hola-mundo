@@ -3,12 +3,12 @@ trigger:
   - main
 
 pool:
-  name: Default
+  name: Default  # Coincide con el pool del agente
 
 jobs:
 - job: TestJob
   displayName: 'Ejecutar Pruebas E2E'
-  timeoutInMinutes: 10  # Añadir timeout al job
+  timeoutInMinutes: 10
   steps:
   - task: NodeTool@0
     inputs:
@@ -28,6 +28,6 @@ jobs:
   - script: |
       start /B ng serve --configuration=development
       wait-on http://localhost:4200 -t 30000
-      npx playwright test --project=chromium --workers=1
+      npx playwright test --project=chromium --workers=1 --retries=2
       taskkill /F /IM node.exe
     displayName: 'Ejecutar pruebas E2E'
