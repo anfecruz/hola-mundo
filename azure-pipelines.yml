@@ -24,5 +24,7 @@ jobs:
     displayName: 'Instalar Playwright'
 
   - script: |
-      ng serve & npx playwright test
+      start ng serve --configuration=development
+      npx wait-on http://localhost:4200
+      npx playwright test
     displayName: 'Ejecutar pruebas E2E'
