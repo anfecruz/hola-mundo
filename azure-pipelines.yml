@@ -16,6 +16,7 @@ jobs:
 
   - script: |
       npm ci
+      npm install -g wait-on
     displayName: 'Instalar dependencias'
 
   - script: |
@@ -24,7 +25,8 @@ jobs:
     displayName: 'Instalar Playwright'
 
   - script: |
-      start ng serve --configuration=development
-      npx wait-on http://localhost:4200
+      start /B ng serve --configuration=development
+      timeout /t 30
       npx playwright test
+      taskkill /F /IM node.exe
     displayName: 'Ejecutar pruebas E2E'
