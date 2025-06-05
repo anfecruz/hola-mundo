@@ -3,7 +3,9 @@ trigger:
   - main
 
 pool:
-  name: Default  # Coincide con el pool donde se configuró el agente
+  name: Default
+  demands:
+    - Agent.Name -equals FELIPECRUZ
 
 jobs:
 - job: TestJob
@@ -12,10 +14,12 @@ jobs:
   steps:
   - task: NodeTool@0
     inputs:
-      versionSpec: '18.x'
+      versionSpec: '16.x'
     displayName: 'Instalar Node.js'
+    retryCountOnTaskFailure: 3
 
   - script: |
+      npm config set registry https://registry.npmjs.org/
       npm ci --no-audit --no-fund --prefer-offline
       npm install -g wait-on
     displayName: 'Instalar dependencias'
