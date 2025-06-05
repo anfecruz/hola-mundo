@@ -3,7 +3,10 @@ trigger:
   - main
 
 pool:
-  name: Default  # Coincide con el pool del agente
+  name: Default
+  demands:
+    - npm
+    - nodejs
 
 jobs:
 - job: TestJob
@@ -16,18 +19,21 @@ jobs:
     displayName: 'Instalar Node.js'
 
   - script: |
-      npm ci --no-audit --no-fund
+      npm ci --no-audit --no-fund --prefer-offline
       npm install -g wait-on
     displayName: 'Instalar dependencias'
+    timeoutInMinutes: 5
 
   - script: |
       npm install -D @playwright/test
       npx playwright install chromium --with-deps
     displayName: 'Instalar Playwright'
+    timeoutInMinutes: 5
 
   - script: |
       start /B ng serve --configuration=development
-      wait-on http://localhost:4200 -t 30000
-      npx playwright test --project=chromium --workers=1 --retries=2
+      wait-on http://localhost:4200 -t 60000
+      npx playwright test --project=chromium --workers=1 --retries=2 --timeout=30000
       taskkill /F /IM node.exe
     displayName: 'Ejecutar pruebas E2E'
+    timeoutInMinutes: 10
