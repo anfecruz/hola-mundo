@@ -20,10 +20,14 @@ jobs:
 
   - powershell: |
       Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force
+      npm cache clean --force
+      npm config set registry https://registry.npmjs.org/
+      npm install
       npm ci --no-audit --no-fund --prefer-offline
       npm install -g wait-on
     displayName: 'Instalar dependencias'
     timeoutInMinutes: 5
+    continueOnError: false
 
   - script: |
       npm install -D @playwright/test
@@ -34,6 +38,7 @@ jobs:
   - powershell: |
       Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force
       Start-Process -NoNewWindow npm -ArgumentList "start"
+      Start-Sleep -Seconds 10
       npx wait-on http://localhost:4200 -t 60000
       npx playwright test --project=chromium --workers=1 --retries=2
       Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force
