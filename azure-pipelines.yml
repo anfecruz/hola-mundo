@@ -18,8 +18,8 @@ jobs:
     displayName: 'Instalar Node.js'
     retryCountOnTaskFailure: 3
 
-  - script: |
-      taskkill /F /IM node.exe 2>nul || true
+  - powershell: |
+      Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force
       npm ci --no-audit --no-fund --prefer-offline
       npm install -g wait-on
     displayName: 'Instalar dependencias'
@@ -31,11 +31,11 @@ jobs:
     displayName: 'Instalar Playwright'
     timeoutInMinutes: 5
 
-  - script: |
-      taskkill /F /IM node.exe 2>nul || true
-      start /B ng serve --configuration=development
-      wait-on http://localhost:4200 -t 60000
+  - powershell: |
+      Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force
+      Start-Process -NoNewWindow npm -ArgumentList "start"
+      npx wait-on http://localhost:4200 -t 60000
       npx playwright test --project=chromium --workers=1 --retries=2
-      taskkill /F /IM node.exe
+      Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force
     displayName: 'Ejecutar pruebas E2E'
     timeoutInMinutes: 10
